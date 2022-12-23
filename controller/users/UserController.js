@@ -36,6 +36,7 @@ const userLoginController = expressAsyncHandler(async (req, res) => {
 
   if (userFound && (await userFound.isPasswordMatched(password))) {
     res.json({
+      _id: userFound?._id,
       firstName: userFound?.firstName,
       lastName: userFound?.lastName,
       email: userFound?.email,
