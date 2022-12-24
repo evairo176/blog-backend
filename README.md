@@ -16,6 +16,7 @@ Project is created with:
 To run this project, install it locally using github and yarn:
 
 ```
-$ cd ../lorem
-$ npm install
-$ npm start
+$ git clone https://github.com/evairo176/Blog-backend.git
+$ yarn add nodemon
+$ yarn server
+
