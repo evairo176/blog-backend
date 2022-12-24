@@ -1,30 +1,29 @@
 const express = require("express");
 const dotenv = require("dotenv");
-
 dotenv.config();
 const dbConnect = require("./config/db/dbConnect");
-
+const userRoutes = require("./route/users/usersRoute");
+const { errorHandler, notFound } = require("./middleware/error/errorHandler");
 const app = express();
+
 //DB
 dbConnect();
 
-//Register
-app.post("/api/users/register", (req, res) => {
-  //business logic
-  res.json({ user: "User Registered" });
-});
+app.use(express.json());
 
-//Login
-app.post("/api/users/login", (req, res) => {
-  //business logic
-  res.json({ user: "User Login" });
-});
+// // 1. custom middleware
+// const logger = (req, res, next) => {
+//   console.log("am logger");
+//   next();
+// };
 
-//fetch all users
-app.post("/api/users/login", (req, res) => {
-  //business logic
-  res.json({ user: "User Login" });
-});
+// // 2. use middleware
+// app.use(logger);
+app.use("/api/users", userRoutes);
+
+// error handler
+app.use(notFound);
+app.use(errorHandler);
 
 //server
 const port = process.env.PORT || 5000;
