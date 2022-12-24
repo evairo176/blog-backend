@@ -20,5 +20,6 @@ $ git clone https://github.com/evairo176/Blog-backend.git
 $ yarn add nodemon
 $ yarn server
 
-thanks all
 
+## Contribution
+name: Dicki Prasetya
