@@ -9,12 +9,11 @@ This project is simple Lorem ipsum dolor generator.
 	
 ## Technologies
 Project is created with:
-* Lorem version: 12.3
-* Ipsum version: 2.33
-* Ament library version: 999
+* NPM version: 6.14.13
+* Node version: v14.17.3
 	
 ## Setup
-To run this project, install it locally using npm:
+To run this project, install it locally using github and yarn:
 
 ```
 $ cd ../lorem
