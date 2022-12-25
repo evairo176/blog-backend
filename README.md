@@ -22,5 +22,6 @@ $ yarn server
 
 ```
 ## Contribution
-name: Dicki Prasetya
-email: dickiprasetya176@gmail.com
+* Name: Dicki Prasetya
+* Email: dickiprasetya176@gmail.com
+
