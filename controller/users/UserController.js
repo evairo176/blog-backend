@@ -223,7 +223,7 @@ const unfollowController = expressAsyncHandler(async (req, res) => {
   const { unFollowId } = req.body;
   const loginUserId = req.user.id;
 
-  if (!unFollowId) throw new Error("Id invalid");
+  validateMongoDbId(unFollowId);
 
   const targetUser = await User.findById(unFollowId);
   const alreadyUnFollowing = targetUser?.followers?.find(
@@ -259,6 +259,24 @@ const unfollowController = expressAsyncHandler(async (req, res) => {
   // res.send("You have unfollowed this user");
 });
 
+//----------------------------------------------
+// block user
+//----------------------------------------------
+
+const blockUserController = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params.id;
+
+  validateMongoDbId(id);
+
+  const user = User.findByIdAndUpdate(
+    id,
+    {
+      isBlock: true,
+    },
+    { new: true }
+  );
+});
+
 module.exports = {
   userRegisterController,
   userLoginController,
@@ -270,4 +288,5 @@ module.exports = {
   updatePasswordController,
   followingController,
   unfollowController,
+  blockUserController,
 };
