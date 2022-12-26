@@ -276,7 +276,27 @@ const blockUserController = expressAsyncHandler(async (req, res) => {
     },
     { new: true }
   );
-  res.json("user blocked");
+  res.json("user successfully blocked");
+});
+
+//----------------------------------------------
+// unblock user
+//----------------------------------------------
+
+const unBlockUserController = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  validateMongoDbId(id);
+  // console.log(id);
+
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      isBlock: false,
+    },
+    { new: true }
+  );
+  res.json("user successfully unblocked");
 });
 
 module.exports = {
@@ -291,4 +311,5 @@ module.exports = {
   followingController,
   unfollowController,
   blockUserController,
+  unBlockUserController,
 };
