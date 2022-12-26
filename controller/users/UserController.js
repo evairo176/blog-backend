@@ -299,7 +299,40 @@ const unBlockUserController = expressAsyncHandler(async (req, res) => {
   res.json("user successfully unblocked");
 });
 
-// abc
+//----------------------------------------------
+// Account verification =  send email
+//----------------------------------------------
+
+const verifUserController = expressAsyncHandler(async (req, res) => {
+  try {
+    var nodemailer = require("nodemailer");
+    // email sender function
+    var transport = nodemailer.createTransport({
+      host: "smtp.mailtrap.io",
+      port: 2525,
+      auth: {
+        user: "dbcfc2cffccb15",
+        pass: "6ed76388b7c484",
+      },
+    });
+    var mailOptions = {
+      from: "Dicki Prasetya",
+      to: "semenjakpetang176",
+      subject: "Email Verification Account",
+      text: "Email content",
+    };
+    transport.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        res.json(500, error.message);
+      } else {
+        console.log("Email sent");
+        res.json("Email sent");
+      }
+    });
+  } catch (error) {
+    res.json(error);
+  }
+});
 
 module.exports = {
   userRegisterController,
@@ -314,4 +347,5 @@ module.exports = {
   unfollowController,
   blockUserController,
   unBlockUserController,
+  verifUserController,
 };

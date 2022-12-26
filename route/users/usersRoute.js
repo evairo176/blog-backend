@@ -12,6 +12,7 @@ const {
   unfollowController,
   blockUserController,
   unBlockUserController,
+  verifUserController,
 } = require("../../controller/users/UserController");
 const authMiddleware = require("../../middleware/auth/authMiddleware");
 const userRoutes = express.Router();
@@ -21,6 +22,7 @@ userRoutes.post("/login", userLoginController);
 userRoutes.get("/", authMiddleware, fetchUserController);
 userRoutes.get("/:id", detailUserController);
 userRoutes.get("/:id", deleteUserController);
+userRoutes.post("/send-mail", verifUserController);
 userRoutes.put("/follow", authMiddleware, followingController);
 userRoutes.put("/unfollow", authMiddleware, unfollowController);
 userRoutes.put("/block-user/:id", authMiddleware, blockUserController);
