@@ -300,7 +300,7 @@ const unBlockUserController = expressAsyncHandler(async (req, res) => {
 });
 
 //----------------------------------------------
-// Account verification =  send email
+// Account send email verification =
 //----------------------------------------------
 
 const verifUserController = expressAsyncHandler(async (req, res) => {
