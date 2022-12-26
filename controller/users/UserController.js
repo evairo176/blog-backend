@@ -125,7 +125,7 @@ const userProfileController = expressAsyncHandler(async (req, res) => {
 const updateProfileController = expressAsyncHandler(async (req, res) => {
   const { _id } = req.user;
   // check id
-  console.log("updateProfileController");
+  console.log(_id);
   validateMongoDbId(_id);
   try {
     const updateUser = await User.findByIdAndUpdate(
@@ -264,17 +264,19 @@ const unfollowController = expressAsyncHandler(async (req, res) => {
 //----------------------------------------------
 
 const blockUserController = expressAsyncHandler(async (req, res) => {
-  const { id } = req.params.id;
+  const { id } = req.params;
 
   validateMongoDbId(id);
+  // console.log(id);
 
-  const user = User.findByIdAndUpdate(
+  const user = await User.findByIdAndUpdate(
     id,
     {
       isBlock: true,
     },
     { new: true }
   );
+  res.json("user blocked");
 });
 
 module.exports = {

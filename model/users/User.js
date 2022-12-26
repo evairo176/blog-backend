@@ -33,6 +33,8 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+
+    // harusnya isBloked
     isBlock: {
       type: Boolean,
       default: false,

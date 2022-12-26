@@ -17,13 +17,13 @@ const userRoutes = express.Router();
 
 userRoutes.post("/register", userRegisterController);
 userRoutes.post("/login", userLoginController);
-userRoutes.get("/profile/:id", authMiddleware, userProfileController);
 userRoutes.get("/", authMiddleware, fetchUserController);
 userRoutes.get("/:id", detailUserController);
 userRoutes.get("/:id", deleteUserController);
 userRoutes.put("/follow", authMiddleware, followingController);
 userRoutes.put("/unfollow", authMiddleware, unfollowController);
 userRoutes.put("/block-user/:id", authMiddleware, blockUserController);
+userRoutes.get("/profile/:id", authMiddleware, userProfileController);
 userRoutes.put("/password", authMiddleware, updatePasswordController);
 userRoutes.put("/:id", authMiddleware, updateProfileController);
 userRoutes.delete("/:id", deleteUserController);
