@@ -4,6 +4,7 @@
 * [Technologies](#technologies)
 * [Setup](#setup)
 
+
 ## General info
 This project is simple Lorem ipsum dolor generator.
 	
@@ -21,7 +22,11 @@ $ yarn add nodemon
 $ yarn server
 
 ```
+
+
 ## Contribution
 * Name: Dicki Prasetya
 * Email: dickiprasetya176@gmail.com
+* Linkedin: dickiprasetya176@gmail.com
+
 
