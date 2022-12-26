@@ -24,4 +24,5 @@ $ yarn server
 ## Contribution
 * Name: Dicki Prasetya
 * Email: dickiprasetya176@gmail.com
+* Linkedin: dickiprasetya176@gmail.com
 
