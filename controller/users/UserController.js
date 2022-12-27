@@ -304,6 +304,8 @@ const unBlockUserController = expressAsyncHandler(async (req, res) => {
 //----------------------------------------------
 
 const verifUserController = expressAsyncHandler(async (req, res) => {
+  const loginUserId = req.user.id;
+  const user = await User.findById(loginUserId);
   try {
     var nodemailer = require("nodemailer");
     // email sender function
@@ -319,7 +321,7 @@ const verifUserController = expressAsyncHandler(async (req, res) => {
       from: "Dicki Prasetya",
       to: "semenjakpetang176@gmail.com",
       subject: "Email Verification Account",
-      text: "Email content",
+      html: "Email content",
     };
     transport.sendMail(mailOptions, function (error, info) {
       if (error) {
