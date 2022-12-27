@@ -131,7 +131,7 @@ userSchema.methods.createAccountVerficationToken = async function () {
   // create a token
   const verificationToken = crypto.randomBytes(32).toString("hex");
   this.accountVerificationToken = crypto
-    .createHash("sha255")
+    .createHash("sha256")
     .update(verificationToken)
     .digest("hex");
 

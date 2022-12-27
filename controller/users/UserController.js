@@ -305,10 +305,14 @@ const unBlockUserController = expressAsyncHandler(async (req, res) => {
 
 const verifUserController = expressAsyncHandler(async (req, res) => {
   const loginUserId = req.user.id;
-  const user = await User.findById(loginUserId);
+
   try {
+    const user = await User.findById(loginUserId);
+    const verificationToken = await user.createAccountVerficationToken();
+    console.log(verificationToken);
+    await user.save();
+    const resetUrl = `If you were requested  to verify your account, verify now within 10 minutes, otherwese ignore this message <a href="http://localhost:5000/api/users/verify-account/${verificationToken}">Click to verify your account</a>`;
     var nodemailer = require("nodemailer");
-    // email sender function
     var transport = nodemailer.createTransport({
       host: "smtp.mailtrap.io",
       port: 2525,
@@ -321,7 +325,7 @@ const verifUserController = expressAsyncHandler(async (req, res) => {
       from: "Dicki Prasetya",
       to: "semenjakpetang176@gmail.com",
       subject: "Email Verification Account",
-      html: "Email content",
+      html: resetUrl,
     };
     transport.sendMail(mailOptions, function (error, info) {
       if (error) {
