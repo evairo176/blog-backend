@@ -300,7 +300,7 @@ const unBlockUserController = expressAsyncHandler(async (req, res) => {
 });
 
 //----------------------------------------------
-// send email verification account with mailtrap and sendgrid
+// send email verification account with mailtrap and sendgrid satu satu
 //----------------------------------------------
 
 const verifUserController = expressAsyncHandler(async (req, res) => {
