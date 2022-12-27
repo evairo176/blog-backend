@@ -3,6 +3,7 @@ const generateToken = require("../../config/token/generateToken");
 const { findById } = require("../../model/users/User");
 const User = require("../../model/users/User");
 const validateMongoDbId = require("../../utils/validateMongoDbId");
+const crypto = require("crypto");
 
 //----------------------------------------------
 // Register
@@ -303,13 +304,13 @@ const unBlockUserController = expressAsyncHandler(async (req, res) => {
 // Generate email verification token
 //----------------------------------------------
 
-const verifUserController = expressAsyncHandler(async (req, res) => {
+const generateEmailTokenController = expressAsyncHandler(async (req, res) => {
   const loginUserId = req.user.id;
 
   try {
     const user = await User.findById(loginUserId);
     const verificationToken = await user.createAccountVerficationToken();
-    console.log(verificationToken);
+    // console.log(verificationToken);
     await user.save();
     const resetUrl = `If you were requested  to verify your account, verify now within 10 minutes, otherwese ignore this message <a href="http://localhost:5000/api/users/verify-account/${verificationToken}">Click to verify your account</a>`;
     var nodemailer = require("nodemailer");
@@ -317,13 +318,13 @@ const verifUserController = expressAsyncHandler(async (req, res) => {
       host: "smtp.mailtrap.io",
       port: 2525,
       auth: {
-        user: "dbcfc2cffccb15",
-        pass: "6ed76388b7c484",
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
     var mailOptions = {
-      from: "Dicki Prasetya",
-      to: "semenjakpetang176@gmail.com",
+      from: '"Fred Foo 👻" <support@example.com>',
+      to: "user@gmail.com",
       subject: "Email Verification Account",
       html: resetUrl,
     };
@@ -339,6 +340,14 @@ const verifUserController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//----------------------------------------------
+// Account verification
+//----------------------------------------------
+
+const accountVerificationController = expressAsyncHandler(async (req, res) => {
+  // const hashedToken =
+});
+
 module.exports = {
   userRegisterController,
   userLoginController,
@@ -352,5 +361,5 @@ module.exports = {
   unfollowController,
   blockUserController,
   unBlockUserController,
-  verifUserController,
+  generateEmailTokenController,
 };
