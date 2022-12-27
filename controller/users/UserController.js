@@ -317,7 +317,7 @@ const verifUserController = expressAsyncHandler(async (req, res) => {
     });
     var mailOptions = {
       from: "Dicki Prasetya",
-      to: "semenjakpetang176",
+      to: "semenjakpetang176@gmail.com",
       subject: "Email Verification Account",
       text: "Email content",
     };
@@ -325,7 +325,6 @@ const verifUserController = expressAsyncHandler(async (req, res) => {
       if (error) {
         res.json(500, error.message);
       } else {
-        console.log("Email sent");
         res.json("Email sent");
       }
     });
