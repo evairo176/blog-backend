@@ -22,7 +22,7 @@ userRoutes.post("/login", userLoginController);
 userRoutes.get("/", authMiddleware, fetchUserController);
 userRoutes.get("/:id", detailUserController);
 userRoutes.get("/:id", deleteUserController);
-userRoutes.post("/generate-verify-email-token", verifUserController);
+userRoutes.post("/generate-verify-email-token",authMiddleware, verifUserController);
 userRoutes.put("/follow", authMiddleware, followingController);
 userRoutes.put("/unfollow", authMiddleware, unfollowController);
 userRoutes.put("/block-user/:id", authMiddleware, blockUserController);
