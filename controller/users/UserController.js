@@ -440,6 +440,10 @@ const passwordResetControlller = expressAsyncHandler(async (req, res) => {
   res.json(user);
 });
 
+//----------------------------------------------
+// Profile photo upload
+//----------------------------------------------
+
 module.exports = {
   userRegisterController,
   userLoginController,
