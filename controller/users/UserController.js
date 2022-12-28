@@ -371,6 +371,10 @@ const accountVerificationController = expressAsyncHandler(async (req, res) => {
 // Forget Token Generator
 //----------------------------------------------
 
+const forgetPasswordController = expressAsyncHandler(async (req, res) => {
+  res.sendFile("Forget Password");
+});
+
 module.exports = {
   userRegisterController,
   userLoginController,
@@ -386,4 +390,5 @@ module.exports = {
   unBlockUserController,
   generateEmailTokenController,
   accountVerificationController,
+  forgetPasswordController,
 };
