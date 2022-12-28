@@ -391,10 +391,11 @@ const forgetPasswordController = expressAsyncHandler(async (req, res) => {
     });
     var mailOptions = {
       from: '"Fred Foo 👻" <support@example.com>',
-      to: email,
+      to: user.email,
       subject: "Reset Password",
       html: resetUrl,
     };
+    console.log(mailOptions);
     await transport.sendMail(mailOptions, function (error, info) {
       if (error) {
         res.json(500, error.message);
