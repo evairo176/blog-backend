@@ -130,7 +130,7 @@ userSchema.methods.isPasswordMatched = async function (enteredPassword) {
 userSchema.methods.createAccountVerficationToken = async function () {
   // create a token
   const verificationToken = crypto.randomBytes(32).toString("hex");
-  this.accountVerificationToken = crypto
+  this.passwordResetToken = crypto
     .createHash("sha256")
     .update(verificationToken)
     .digest("hex");
@@ -144,15 +144,15 @@ userSchema.methods.createAccountVerficationToken = async function () {
 userSchema.methods.createPasswordResetToken = async function () {
   // create a token
   const resetToken = crypto.randomBytes(32).toString("hex");
-  console.log(resetToken);
-  // this.passwordResetToken = crypto
-  //   .createHash("sha256")
-  //   .update(verificationToken)
-  //   .digest("hex");
+  // console.log(resetToken);
+  this.passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
 
-  // this.accountVerificationExpires = Date.now() + 30 * 60 * 1000; // 10 menit
+  this.passwordResetExpires = Date.now() + 30 * 60 * 1000; // 10 menit
 
-  // return verificationToken;
+  return resetToken;
 };
 
 //Compile schema to model
