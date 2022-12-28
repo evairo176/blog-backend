@@ -446,12 +446,23 @@ const passwordResetControlller = expressAsyncHandler(async (req, res) => {
 //----------------------------------------------
 
 const profilePhotoUploadController = expressAsyncHandler(async (req, res) => {
+  // login user
+  const { _id } = req.user;
   // 1. get the path to img
   const localPath = `public/images/profile/${req.file.filename}`;
   // 2. upload to cloudinary
   const imgUpload = await cloudinaryUploadImg(localPath);
-  console.log(imgUpload);
-  res.json(localPath);
+
+  const user = await User.findByIdAndUpdate(
+    _id,
+    {
+      profilePhoto: imgUpload?.url,
+    },
+    {
+      new: true,
+    }
+  );
+  res.json(user);
 });
 
 module.exports = {
