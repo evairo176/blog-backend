@@ -1,6 +1,6 @@
-# MONGODB_URL=mongodb+srv://bloguser:5fx92y3DEqpkoGqm@mern-stack-complete-blo.us7vq0t.mongodb.net/mern-blog?retryWrites=true&w=majority
-# JWT_KEY=JDWJ21281HDEQDDN
-# EMAIL_USER=dbcfc2cffccb15
-# EMAIL_PASS=6ed76388b7c484
+# MONGODB_URL=
+# JWT_KEY=
+# EMAIL_USER=
+# EMAIL_PASS=
 # MONGODB_URL=mongodb://localhost:27017
 
