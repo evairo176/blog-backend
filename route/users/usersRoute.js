@@ -19,6 +19,10 @@ const {
   profilePhotoUploadController,
 } = require("../../controller/users/UserController");
 const authMiddleware = require("../../middleware/auth/authMiddleware");
+const {
+  profilePhotoUpload,
+} = require("../../middleware/uploads/pofilePhotoUpload");
+
 const userRoutes = express.Router();
 
 userRoutes.post("/register", userRegisterController);
@@ -26,6 +30,7 @@ userRoutes.post("/login", userLoginController);
 userRoutes.put(
   "/profile-photo-upload",
   authMiddleware,
+  profilePhotoUpload.single("image"),
   profilePhotoUploadController
 );
 userRoutes.get("/", authMiddleware, fetchUserController);

@@ -445,6 +445,7 @@ const passwordResetControlller = expressAsyncHandler(async (req, res) => {
 //----------------------------------------------
 
 const profilePhotoUploadController = expressAsyncHandler(async (req, res) => {
+  console.log(req.file);
   res.json("upload");
 });
 
