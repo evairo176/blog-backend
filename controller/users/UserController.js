@@ -395,12 +395,14 @@ const forgetPasswordController = expressAsyncHandler(async (req, res) => {
       subject: "Reset Password",
       html: resetUrl,
     };
-    console.log(mailOptions);
+
     await transport.sendMail(mailOptions, function (error, info) {
       if (error) {
         res.json(500, error.message);
       } else {
-        res.json(resetUrl);
+        res.json({
+          msg: `A verification message is succesfully send to ${user?.email}. Reset now within 10 minutes, ${resetUrl} }`,
+        });
       }
     });
   } catch (error) {
