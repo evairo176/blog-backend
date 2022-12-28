@@ -13,6 +13,7 @@ const {
   blockUserController,
   unBlockUserController,
   generateEmailTokenController,
+  accountVerificationController,
 } = require("../../controller/users/UserController");
 const authMiddleware = require("../../middleware/auth/authMiddleware");
 const userRoutes = express.Router();
@@ -26,6 +27,11 @@ userRoutes.post(
   "/generate-verify-email-token",
   authMiddleware,
   generateEmailTokenController
+);
+userRoutes.put(
+  "/verify-account/",
+  authMiddleware,
+  accountVerificationController
 );
 userRoutes.put("/follow", authMiddleware, followingController);
 userRoutes.put("/unfollow", authMiddleware, unfollowController);

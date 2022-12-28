@@ -345,7 +345,26 @@ const generateEmailTokenController = expressAsyncHandler(async (req, res) => {
 //----------------------------------------------
 
 const accountVerificationController = expressAsyncHandler(async (req, res) => {
-  // const hashedToken =
+  const { token } = req.body;
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+  console.log(hashedToken);
+  console.log(new Date());
+
+  const userFound = await User.findOne({
+    accountVerificationToken: hashedToken,
+    accountVerificationExpires: { $gt: new Date() },
+  });
+
+  if (!userFound) throw new Error("Token expired, Try again later");
+
+  // user update
+  userFound.isAccountVerified = true;
+  userFound.accountVerificationToken = undefined;
+  userFound.accountVerificationExpires = undefined;
+
+  await userFound.save();
+
+  res.json(userFound);
 });
 
 module.exports = {
@@ -362,4 +381,5 @@ module.exports = {
   blockUserController,
   unBlockUserController,
   generateEmailTokenController,
+  accountVerificationController,
 };
