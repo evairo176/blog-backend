@@ -373,10 +373,10 @@ const accountVerificationController = expressAsyncHandler(async (req, res) => {
 
 const forgetPasswordController = expressAsyncHandler(async (req, res) => {
   const { email } = req.body.email;
-  const user = await User.findOne(email);
-  if (!user) throw new Error("User not found");
 
   try {
+    const user = await User.findOne(email);
+    if (!user) throw new Error("User not found");
     const token = await user.createPasswordResetToken();
     await user.save();
     const resetUrl = `If you were requested to reset your account, reset now within 10 minutes, otherwese ignore this message <a href="http://localhost:5000/api/users/reset-password/${token}">Click to verify your account</a>`;
@@ -410,6 +410,36 @@ const forgetPasswordController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//----------------------------------------------
+// Password reset
+//----------------------------------------------
+
+const passwordResetControlller = expressAsyncHandler(async (req, res) => {
+  const { token, password } = req.body;
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+  // console.log(hashedToken);
+  // console.log(
+  //   "1aa243b49e795f82c02ce737c604856b8b02513332be790ebbacbf3837aca215"
+  // );
+
+  //find this user by token
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+
+  if (!user) throw new Error("Token expired, Try again later");
+
+  // user update
+  user.password = password;
+  user.passwordChangeAt = Date.now();
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+
+  await user.save();
+  res.json(user);
+});
+
 module.exports = {
   userRegisterController,
   userLoginController,
@@ -426,4 +456,5 @@ module.exports = {
   generateEmailTokenController,
   accountVerificationController,
   forgetPasswordController,
+  passwordResetControlller,
 };
