@@ -140,6 +140,21 @@ userSchema.methods.createAccountVerficationToken = async function () {
   return verificationToken;
 };
 
+// password reset
+userSchema.methods.createPasswordResetToken = async function () {
+  // create a token
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  console.log(resetToken);
+  // this.passwordResetToken = crypto
+  //   .createHash("sha256")
+  //   .update(verificationToken)
+  //   .digest("hex");
+
+  // this.accountVerificationExpires = Date.now() + 30 * 60 * 1000; // 10 menit
+
+  // return verificationToken;
+};
+
 //Compile schema to model
 const User = mongoose.model("User", userSchema);
 

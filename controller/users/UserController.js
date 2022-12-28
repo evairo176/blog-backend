@@ -372,9 +372,17 @@ const accountVerificationController = expressAsyncHandler(async (req, res) => {
 //----------------------------------------------
 
 const forgetPasswordController = expressAsyncHandler(async (req, res) => {
-  const { email } = req.body;
-  const user = await User.findOne({ email });
+  const { email } = req.body.email;
+  const user = await User.findOne(email);
   if (!user) throw new Error("User not found");
+
+  try {
+    const token = await user.createPasswordResetToken();
+    await user.save();
+    res.send("success");
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 module.exports = {
