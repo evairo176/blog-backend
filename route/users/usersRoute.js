@@ -16,12 +16,18 @@ const {
   accountVerificationController,
   forgetPasswordController,
   passwordResetControlller,
+  profilePhotoUploadController,
 } = require("../../controller/users/UserController");
 const authMiddleware = require("../../middleware/auth/authMiddleware");
 const userRoutes = express.Router();
 
 userRoutes.post("/register", userRegisterController);
 userRoutes.post("/login", userLoginController);
+userRoutes.put(
+  "/profile-photo-upload",
+  authMiddleware,
+  profilePhotoUploadController
+);
 userRoutes.get("/", authMiddleware, fetchUserController);
 userRoutes.get("/:id", detailUserController);
 userRoutes.get("/:id", deleteUserController);
