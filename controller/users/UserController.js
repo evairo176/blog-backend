@@ -4,6 +4,7 @@ const { findById } = require("../../model/users/User");
 const User = require("../../model/users/User");
 const validateMongoDbId = require("../../utils/validateMongoDbId");
 const crypto = require("crypto");
+const cloudinaryUploadImg = require("../../utils/cloudinary");
 
 //----------------------------------------------
 // Register
@@ -445,8 +446,12 @@ const passwordResetControlller = expressAsyncHandler(async (req, res) => {
 //----------------------------------------------
 
 const profilePhotoUploadController = expressAsyncHandler(async (req, res) => {
-  console.log(req.file);
-  res.json("upload");
+  // 1. get the path to img
+  const localPath = `public/images/profile/${req.file.filename}`;
+  // 2. upload to cloudinary
+  const imgUpload = await cloudinaryUploadImg(localPath);
+  console.log(imgUpload);
+  res.json(localPath);
 });
 
 module.exports = {
