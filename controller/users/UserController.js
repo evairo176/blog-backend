@@ -367,6 +367,10 @@ const accountVerificationController = expressAsyncHandler(async (req, res) => {
   res.json(userFound);
 });
 
+//----------------------------------------------
+// Forget Token Generator
+//----------------------------------------------
+
 module.exports = {
   userRegisterController,
   userLoginController,
