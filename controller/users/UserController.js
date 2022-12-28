@@ -324,11 +324,11 @@ const generateEmailTokenController = expressAsyncHandler(async (req, res) => {
     });
     var mailOptions = {
       from: '"Fred Foo 👻" <support@example.com>',
-      to: "user@gmail.com",
+      to: user.email,
       subject: "Email Verification Account",
       html: resetUrl,
     };
-    transport.sendMail(mailOptions, function (error, info) {
+    await transport.sendMail(mailOptions, function (error, info) {
       if (error) {
         res.json(500, error.message);
       } else {
@@ -347,8 +347,8 @@ const generateEmailTokenController = expressAsyncHandler(async (req, res) => {
 const accountVerificationController = expressAsyncHandler(async (req, res) => {
   const { token } = req.body;
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
-  console.log(hashedToken);
-  console.log(new Date());
+  // console.log(hashedToken);
+  // console.log(new Date());
 
   const userFound = await User.findOne({
     accountVerificationToken: hashedToken,
@@ -379,7 +379,29 @@ const forgetPasswordController = expressAsyncHandler(async (req, res) => {
   try {
     const token = await user.createPasswordResetToken();
     await user.save();
-    res.send("success");
+    const resetUrl = `If you were requested to reset your account, reset now within 10 minutes, otherwese ignore this message <a href="http://localhost:5000/api/users/reset-password/${token}">Click to verify your account</a>`;
+    var nodemailer = require("nodemailer");
+    var transport = nodemailer.createTransport({
+      host: "smtp.mailtrap.io",
+      port: 2525,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+    var mailOptions = {
+      from: '"Fred Foo 👻" <support@example.com>',
+      to: email,
+      subject: "Reset Password",
+      html: resetUrl,
+    };
+    await transport.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        res.json(500, error.message);
+      } else {
+        res.json(resetUrl);
+      }
+    });
   } catch (error) {
     res.json(error);
   }
