@@ -372,7 +372,7 @@ const accountVerificationController = expressAsyncHandler(async (req, res) => {
 //----------------------------------------------
 
 const forgetPasswordController = expressAsyncHandler(async (req, res) => {
-  res.sendFile("Forget Password");
+  res.send("Forget Password");
 });
 
 module.exports = {
