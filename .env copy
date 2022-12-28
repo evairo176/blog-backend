@@ -1,0 +1,7 @@
+# example
+MONGODB_URL=mongodb+srv://abc:5fx92y3DEqpkoGqm@abc.mongodb.net/mern-blog?retryWrites=true&w=majority
+JWT_KEY=55
+EMAIL_USER=55
+EMAIL_PASS=55
+# MONGODB_URL=mongodb://localhost:27017
+
