@@ -4,7 +4,11 @@ const validateMongoDbId = require("../../utils/validateMongoDbId");
 const Filter = require("bad-words");
 const User = require("../../model/users/User");
 const cloudinaryUploadImg = require("../../utils/cloudinary");
+const fs = require("fs");
 
+//----------------------------------------------
+// create post
+//----------------------------------------------
 const createPostController = expressAsyncHandler(async (req, res) => {
   //   console.log(req.file);
   const { _id } = req.user;
@@ -35,6 +39,22 @@ const createPostController = expressAsyncHandler(async (req, res) => {
       user: _id,
       //   title:req.body.title
     });
+    // remove uploaded img
+    fs.unlinkSync(localPath);
+
+    res.json(post);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+//----------------------------------------------
+// fetch all post
+//----------------------------------------------
+
+const fetchAllPostController = expressAsyncHandler(async (req, res) => {
+  try {
+    const post = await Post.find({}).populate("user");
     res.json(post);
   } catch (error) {
     res.json(error);
@@ -43,4 +63,5 @@ const createPostController = expressAsyncHandler(async (req, res) => {
 
 module.exports = {
   createPostController,
+  fetchAllPostController,
 };

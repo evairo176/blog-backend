@@ -5,6 +5,7 @@ const User = require("../../model/users/User");
 const validateMongoDbId = require("../../utils/validateMongoDbId");
 const crypto = require("crypto");
 const cloudinaryUploadImg = require("../../utils/cloudinary");
+const fs = require("fs");
 
 //----------------------------------------------
 // Register
@@ -110,10 +111,9 @@ const detailUserController = expressAsyncHandler(async (req, res) => {
 const userProfileController = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   // check id
-  console("user profile");
   validateMongoDbId(id);
   try {
-    const myProfile = await User.findById(id);
+    const myProfile = await User.findById(id).populate("posts");
     res.json(myProfile);
   } catch (error) {
     res.json(error);
@@ -462,6 +462,7 @@ const profilePhotoUploadController = expressAsyncHandler(async (req, res) => {
       new: true,
     }
   );
+  fs.unlinkSync(localPath);
   res.json(user);
 });
 
