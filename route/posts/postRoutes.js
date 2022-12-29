@@ -1,13 +1,14 @@
 const express = require("express");
 const {
-  createPostController,
-  fetchAllPostController,
-} = require("../../controller/posts/PostController");
-const authMiddleware = require("../../middleware/auth/authMiddleware");
-const {
   photoUpload,
   postImgResize,
 } = require("../../middleware/uploads/photoUpload");
+const {
+  createPostController,
+  fetchAllPostController,
+  fetchSinglePostController,
+} = require("../../controller/posts/PostController");
+const authMiddleware = require("../../middleware/auth/authMiddleware");
 
 const postRoutes = express.Router();
 
@@ -20,5 +21,6 @@ postRoutes.post(
 );
 
 postRoutes.get("/", authMiddleware, fetchAllPostController);
+postRoutes.get("/:id", authMiddleware, fetchSinglePostController);
 
 module.exports = postRoutes;
