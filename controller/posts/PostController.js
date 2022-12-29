@@ -87,8 +87,31 @@ const fetchSinglePostController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//----------------------------------------------
+// update post
+//----------------------------------------------
+
+const updatePostController = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongoDbId(id);
+  try {
+    const postUpdate = await Post.findByIdAndUpdate(
+      id,
+      {
+        ...req.body,
+        user: req.user,
+      },
+      { new: true }
+    );
+    res.json(postUpdate);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 module.exports = {
   createPostController,
   fetchAllPostController,
   fetchSinglePostController,
+  updatePostController,
 };
