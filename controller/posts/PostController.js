@@ -109,9 +109,25 @@ const updatePostController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//----------------------------------------------
+// delete post
+//----------------------------------------------
+
+const deletePostController = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongoDbId(id);
+  try {
+    const deletePost = await Post.findByIdAndDelete(id);
+    res.json(deletePost);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 module.exports = {
   createPostController,
   fetchAllPostController,
   fetchSinglePostController,
   updatePostController,
+  deletePostController,
 };
