@@ -2,7 +2,8 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
 const dbConnect = require("./config/db/dbConnect");
-const userRoutes = require("./route/users/usersRoute");
+const userRoutes = require("./route/users/usersRoutes");
+const postRoutes = require("./route/posts/postRoutes");
 const { errorHandler, notFound } = require("./middleware/error/errorHandler");
 const app = express();
 
@@ -18,9 +19,10 @@ app.use(express.json());
 // };
 
 // // 2. use middleware
-// app.use(logger);
+// user route
 app.use("/api/users", userRoutes);
-
+// post route
+app.use("/api/posts", postRoutes);
 // error handler
 app.use(notFound);
 app.use(errorHandler);
