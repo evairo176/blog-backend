@@ -446,7 +446,7 @@ const passwordResetControlller = expressAsyncHandler(async (req, res) => {
 //----------------------------------------------
 
 const profilePhotoUploadController = expressAsyncHandler(async (req, res) => {
-  // login user
+  // login user id
   const { _id } = req.user;
   // 1. get the path to img
   const localPath = `public/images/profile/${req.file.filename}`;
