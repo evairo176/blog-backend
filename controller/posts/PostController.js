@@ -110,7 +110,7 @@ const updatePostController = expressAsyncHandler(async (req, res) => {
 });
 
 //----------------------------------------------
-// delete post
+// delete post 
 //----------------------------------------------
 
 const deletePostController = expressAsyncHandler(async (req, res) => {
