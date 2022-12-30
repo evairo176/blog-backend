@@ -115,6 +115,7 @@ const updatePostController = expressAsyncHandler(async (req, res) => {
 
 const deletePostController = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
+  // check validation
   validateMongoDbId(id);
   try {
     const deletePost = await Post.findByIdAndDelete(id);
