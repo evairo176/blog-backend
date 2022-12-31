@@ -1,4 +1,4 @@
-# Blog-backend
+# Blog-backend 
 
 ## Table of contents
 
@@ -17,7 +17,8 @@ Project is created with:
 - NPM version: 6.14.13
 - Node version: v14.17.3
 
-## Setup
+## Setup project
+
 
 To run this project, install it locally using github and yarn:
 
@@ -28,7 +29,7 @@ $ yarn server
 
 ```
 
-## Contribution
+## Contribution 
 
 - Name: Dicki Prasetya
 - Email: dickiprasetya176@gmail.com
