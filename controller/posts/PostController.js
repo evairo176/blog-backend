@@ -136,8 +136,12 @@ const toggleAddLikeToPostConstroller = expressAsyncHandler(async (req, res) => {
   // 2. find id login user
   const loginUserId = req?.user?._id;
   // 3. find this user has liked this post ?
-  const isLiked = post.isLiked;
+  const isLiked = post?.isLiked;
   // 4. check this user has disliked this post ?
+  const alreadyDisLiked = post?.disLiked?.find(
+    (userId) => userId?.toString() === loginUserId?.toString()
+  );
+  console.log(alreadyDisLiked);
   console.log(isLiked);
   console.log(loginUserId);
   res.json(post);
