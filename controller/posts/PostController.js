@@ -125,6 +125,10 @@ const deletePostController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//----------------------------------------------
+// likes
+//----------------------------------------------
+
 module.exports = {
   createPostController,
   fetchAllPostController,
