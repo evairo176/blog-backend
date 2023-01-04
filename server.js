@@ -5,6 +5,7 @@ const dbConnect = require("./config/db/dbConnect");
 const userRoutes = require("./route/users/usersRoutes");
 const postRoutes = require("./route/posts/postRoutes");
 const { errorHandler, notFound } = require("./middleware/error/errorHandler");
+const commentRoutes = require("./route/comments/commentRoutes");
 const app = express();
 
 //DB
@@ -12,17 +13,12 @@ dbConnect();
 
 app.use(express.json());
 
-// // 1. custom middleware
-// const logger = (req, res, next) => {
-//   console.log("am logger");
-//   next();
-// };
-
-// // 2. use middleware
-// user route
+// user routes
 app.use("/api/users", userRoutes);
-// post route
+// post routes
 app.use("/api/posts", postRoutes);
+// comment routes
+app.use("/api/comments", commentRoutes);
 // error handler
 app.use(notFound);
 app.use(errorHandler);
