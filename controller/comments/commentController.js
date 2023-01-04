@@ -26,6 +26,16 @@ const createCommentController = expressAsyncHandler(async (req, res) => {
 // fetch all comment
 //----------------------------------------------
 
+const fetchAllCommentController = expressAsyncHandler(async (req, res) => {
+  try {
+    const comment = await Comment.find({}).sort("-created");
+    res.json(comment);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 module.exports = {
   createCommentController,
+  fetchAllCommentController,
 };
