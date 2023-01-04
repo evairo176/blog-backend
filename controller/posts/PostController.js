@@ -130,8 +130,16 @@ const deletePostController = expressAsyncHandler(async (req, res) => {
 //----------------------------------------------
 
 const toggleAddLikeToPostConstroller = expressAsyncHandler(async (req, res) => {
+  // 1. find the post by id
   const { postId } = req.body;
   const post = await Post.findById(postId);
+  // 2. find id login user
+  const loginUserId = req?.user?._id;
+  // 3. find this user has liked this post ?
+  const isLiked = post.isLiked;
+  // 4. check this user has disliked this post ?
+  console.log(isLiked);
+  console.log(loginUserId);
   res.json(post);
 });
 
