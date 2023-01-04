@@ -141,10 +141,24 @@ const toggleAddLikeToPostConstroller = expressAsyncHandler(async (req, res) => {
   const alreadyDisLiked = post?.disLiked?.find(
     (userId) => userId?.toString() === loginUserId?.toString()
   );
-  console.log(alreadyDisLiked);
-  console.log(isLiked);
-  console.log(loginUserId);
-  res.json(post);
+
+  // 5. remove the user from disliked list
+  if (alreadyDisLiked) {
+    const deleteDisLiked = Post.findByIdAndUpdate(
+      postId,
+      {
+        $pull: {
+          disLikes: loginUserId,
+          isDisLiked: false,
+        },
+      },
+      { new: true }
+    );
+    console.log(alreadyDisLiked);
+    console.log(isLiked);
+    console.log(loginUserId);
+    res.json(deleteDisLiked);
+  }
 });
 
 module.exports = {
