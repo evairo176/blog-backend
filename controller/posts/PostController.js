@@ -130,7 +130,9 @@ const deletePostController = expressAsyncHandler(async (req, res) => {
 //----------------------------------------------
 
 const toggleAddLikeToPostConstroller = expressAsyncHandler(async (req, res) => {
-  res.json("abc");
+  const { postId } = req.body;
+  const post = await Post.findById(postId);
+  res.json(post);
 });
 
 module.exports = {
