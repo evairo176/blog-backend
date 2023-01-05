@@ -22,10 +22,26 @@ const createCategoryController = expressAsyncHandler(async (req, res) => {
 //----------------------------------------------
 
 const fetchAllCategoryController = expressAsyncHandler(async (req, res) => {
-  res.json("fetch all");
+  try {
+    const categories = await Category.find({})
+      .populate("user")
+      .sort("_createdAt");
+    res.json(categories);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+//----------------------------------------------
+// fetch / detail category
+//----------------------------------------------
+
+const fetchCategoryController = expressAsyncHandler(async (req, res) => {
+  res.json("abc");
 });
 
 module.exports = {
   createCategoryController,
   fetchAllCategoryController,
+  fetchCategoryController,
 };
