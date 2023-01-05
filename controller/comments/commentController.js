@@ -37,7 +37,7 @@ const fetchAllCommentController = expressAsyncHandler(async (req, res) => {
 });
 
 //----------------------------------------------
-// fetch detail comment
+// fetch detail comment  
 //----------------------------------------------
 
 const fetchSingleCommentController = expressAsyncHandler(async (req, res) => {
