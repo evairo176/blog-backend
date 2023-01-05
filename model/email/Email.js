@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const emailSchema = new mongoose.Schema(
   {
-    fromEmail: {
+    from: {
       type: String,
       required: true,
     },
-    toEmail: {
+    to: {
       type: String,
       required: true,
     },

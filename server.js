@@ -19,6 +19,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 // comment routes
 app.use("/api/comments", commentRoutes);
+// email routes
+app.use("/api/comments", commentRoutes);
 // error handler
 app.use(notFound);
 app.use(errorHandler);
