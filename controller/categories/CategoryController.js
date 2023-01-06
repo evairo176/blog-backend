@@ -51,20 +51,24 @@ const fetchCategoryController = expressAsyncHandler(async (req, res) => {
 });
 
 //----------------------------------------------
-// update category  
+// update category
 //----------------------------------------------
 
 const updateCategoryController = expressAsyncHandler(async (req, res) => {
-    const { id } = req.params;
-    validateMongoDbId(id);
-    try {
-        const category = await Category.findByIdAndUpdate(id,{
-            title: 
-        })
-    } catch (error) {
-        
-    }
-  res.json("abcv");
+  const { id } = req.params;
+  validateMongoDbId(id);
+  try {
+    const category = await Category.findByIdAndUpdate(
+      id,
+      {
+        title: req?.body?.title,
+      },
+      { new: true, runValidators: true }
+    );
+    res.json(category);
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 module.exports = {
