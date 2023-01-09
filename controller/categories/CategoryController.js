@@ -71,6 +71,10 @@ const updateCategoryController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//----------------------------------------------
+// delete category
+//----------------------------------------------
+
 module.exports = {
   createCategoryController,
   fetchAllCategoryController,
