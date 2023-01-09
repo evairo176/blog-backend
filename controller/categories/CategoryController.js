@@ -51,7 +51,7 @@ const fetchCategoryController = expressAsyncHandler(async (req, res) => {
 });
 
 //----------------------------------------------
-// update category
+// update categori
 //----------------------------------------------
 
 const updateCategoryController = expressAsyncHandler(async (req, res) => {
