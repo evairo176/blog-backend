@@ -9,10 +9,11 @@ const commentRoutes = require("./route/comments/commentRoutes");
 const emailRoutes = require("./route/emails/emailRoutes");
 const { categoryRoutes } = require("./route/categories/categoryRoutes");
 const app = express();
+var cors = require("cors");
 
 //DB
 dbConnect();
-
+app.use(cors());
 app.use(express.json());
 
 // user routes
