@@ -12,7 +12,10 @@ const createCategoryController = expressAsyncHandler(async (req, res) => {
       user: req.user._id,
       title: req.body.title,
     });
-    res.json(category);
+    res.json({
+      message: `Create new category ${category.title} successfully`,
+      category: category,
+    });
   } catch (error) {
     res.json(error);
   }
