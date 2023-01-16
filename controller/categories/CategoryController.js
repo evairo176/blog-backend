@@ -30,7 +30,10 @@ const fetchAllCategoryController = expressAsyncHandler(async (req, res) => {
     const categories = await Category.find({})
       .populate("user")
       .sort("_createdAt");
-    res.json(categories);
+    res.json({
+      message: `Show all categories successfully`,
+      categories: categories,
+    });
   } catch (error) {
     res.json(error);
   }
