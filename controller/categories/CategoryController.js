@@ -50,7 +50,10 @@ const fetchCategoryController = expressAsyncHandler(async (req, res) => {
     const categories = await Category.findById(id)
       .populate("user")
       .sort("_createdAt");
-    res.json(categories);
+    res.json({
+      message: `Show detail category successfully`,
+      detailCategory: categories,
+    });
   } catch (error) {
     res.json(error);
   }
