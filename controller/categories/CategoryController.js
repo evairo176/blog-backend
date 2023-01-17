@@ -71,7 +71,10 @@ const updateCategoryController = expressAsyncHandler(async (req, res) => {
       },
       { new: true, runValidators: true }
     );
-    res.json(category);
+    res.json({
+      message: `Update Category Successfully`,
+      updateCategory: category,
+    });
   } catch (error) {
     res.json(error);
   }
