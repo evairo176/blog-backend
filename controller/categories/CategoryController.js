@@ -89,7 +89,10 @@ const deleteCategoryController = expressAsyncHandler(async (req, res) => {
   validateMongoDbId(id);
   try {
     const category = await Category.findByIdAndDelete(id);
-    res.json(category);
+    res.json({
+      message: `Delete category ${category.title} successfully`,
+      deleteCategory: category,
+    });
   } catch (error) {
     res.json(error);
   }
