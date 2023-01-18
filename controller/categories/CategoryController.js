@@ -7,6 +7,11 @@ const validateMongoDbId = require("../../utils/validateMongoDbId");
 //----------------------------------------------
 
 const createCategoryController = expressAsyncHandler(async (req, res) => {
+  const titleCategoryExists = await Category.findOne({
+    title: req?.body?.title,
+  });
+
+  if (titleCategoryExists) throw new Error("Title Category exists");
   try {
     const category = await Category.create({
       user: req.user._id,
