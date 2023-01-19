@@ -25,7 +25,7 @@ const createCategoryController = expressAsyncHandler(async (req, res) => {
       title: titleOri,
     });
     res.json({
-      message: `Create new category ${category.title} successfully`,
+      message: `Create a new category ${category.title} was successful`,
       category: category,
     });
   } catch (error) {
@@ -43,7 +43,7 @@ const fetchAllCategoryController = expressAsyncHandler(async (req, res) => {
       .populate("user")
       .sort("_createdAt");
     res.json({
-      message: `Show all categories successfully`,
+      message: `Successfully displays all data`,
       categories: categories,
     });
   } catch (error) {
@@ -63,7 +63,7 @@ const fetchCategoryController = expressAsyncHandler(async (req, res) => {
       .populate("user")
       .sort("_createdAt");
     res.json({
-      message: `Show detail category successfully`,
+      message: `successfully displayed data ${categories?.title}`,
       detailCategory: categories,
     });
   } catch (error) {
@@ -99,7 +99,7 @@ const updateCategoryController = expressAsyncHandler(async (req, res) => {
       { new: true, runValidators: true }
     );
     res.json({
-      message: `Update Category Successfully`,
+      message: `Update Category ${titleOri} Successfully`,
       updateCategory: category,
     });
   } catch (error) {
@@ -117,7 +117,7 @@ const deleteCategoryController = expressAsyncHandler(async (req, res) => {
   try {
     const category = await Category.findByIdAndDelete(id);
     res.json({
-      message: `Delete category ${category.title} successfully`,
+      message: `Remove category ${category.title} was successfully`,
       deleteCategory: category,
     });
   } catch (error) {

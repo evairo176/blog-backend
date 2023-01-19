@@ -43,7 +43,7 @@ const createPostController = expressAsyncHandler(async (req, res) => {
     // fs.unlinkSync(localPath);
 
     res.json({
-      message: "Created post successfully",
+      message: `Post with title ${req?.body.title} was created successfully`,
       post: post,
     });
   } catch (error) {
