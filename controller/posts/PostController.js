@@ -42,7 +42,10 @@ const createPostController = expressAsyncHandler(async (req, res) => {
     // remove uploaded img
     // fs.unlinkSync(localPath);
 
-    res.json(post);
+    res.json({
+      message: "Created post successfully",
+      post: post,
+    });
   } catch (error) {
     res.json(error);
   }
