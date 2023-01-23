@@ -24,7 +24,10 @@ const userRegisterController = expressAsyncHandler(async (req, res) => {
       email: req?.body?.email,
       password: req?.body?.password,
     });
-    res.json(user);
+    res.json({
+      message: "Register Successfully",
+      user: user,
+    });
   } catch (error) {
     res.json(error);
   }

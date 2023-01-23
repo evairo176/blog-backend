@@ -10,16 +10,16 @@ const fs = require("fs");
 // create post
 //----------------------------------------------
 const createPostController = expressAsyncHandler(async (req, res) => {
-  //   console.log(req.file);
+  // console.log(req.body);
   const { _id } = req.user;
-  //   console.log(id);
+  console.log(_id);
   //   validateMongoDbId(req.body.user);
   // check if bad words
   const filter = new Filter();
   const isProfane = filter.isProfane(req.body.title, req.body.description);
   //   console.log(isProfane);
   if (isProfane) {
-    await User.findByIdAndUpdate(id, {
+    await User.findByIdAndUpdate(_id, {
       isBlock: true,
     });
     throw new Error(
@@ -27,21 +27,20 @@ const createPostController = expressAsyncHandler(async (req, res) => {
     );
   }
   // 1. get the path to img
-  // const localPath = `public/images/posts/${req.file.filename}`;
+  const localPath = `public/images/posts/${req.file.filename}`;
   // 2. upload to cloudinary
-  // const imgUpload = await cloudinaryUploadImg(localPath);
+  const imgUpload = await cloudinaryUploadImg(localPath);
   //   res.json(imgUpload);
 
   try {
     const post = await Post.create({
       ...req.body,
-      // image: imgUpload?.url,
+      image: imgUpload?.url,
       user: _id,
-      //   title:req.body.title
     });
     // remove uploaded img
     // fs.unlinkSync(localPath);
-
+    // res.json(imgUpload);
     res.json({
       message: `Post with title ${req?.body.title} was created successfully`,
       post: post,
