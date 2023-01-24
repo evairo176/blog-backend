@@ -59,7 +59,7 @@ const fetchAllPostController = expressAsyncHandler(async (req, res) => {
     const page = parseInt(req.query.page) - 1 || 0;
     const limit = parseInt(req.query.limit) || 5;
     const search = req.query.search || "";
-    let sort = req.query.sort || "id";
+    let sort = req.query.sort || "createdAt";
     let category = req.query.genre || "All";
 
     const genreOptions = ["Indonesia", "Malaysia"];
