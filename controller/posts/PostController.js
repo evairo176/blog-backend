@@ -60,13 +60,13 @@ const fetchAllPostController = expressAsyncHandler(async (req, res) => {
     const limit = parseInt(req.query.limit) || 5;
     const search = req.query.search || "";
     let sort = req.query.sort || "createdAt";
-    let category = req.query.genre || "All";
+    let category = req.query.category || "All";
 
     const genreOptions = ["Indonesia", "Malaysia"];
 
     category === "All"
       ? (category = [...genreOptions])
-      : (category = req.query.genre.split(","));
+      : (category = req.query.category.split(","));
 
     req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
 
@@ -80,6 +80,7 @@ const fetchAllPostController = expressAsyncHandler(async (req, res) => {
 
     const post = await Post.find({
       title: { $regex: search, $options: "i" },
+      category: { $regex: search, $options: "i" },
     })
       .populate("user")
       .populate("likes")
@@ -107,7 +108,7 @@ const fetchAllPostController = expressAsyncHandler(async (req, res) => {
       total,
       page: page + 1,
       limit: limit,
-      genre: genreOptions,
+      category: genreOptions,
       post,
     };
     // console.log(response);
