@@ -56,11 +56,68 @@ const createPostController = expressAsyncHandler(async (req, res) => {
 
 const fetchAllPostController = expressAsyncHandler(async (req, res) => {
   try {
-    const post = await Post.find({})
+    const page = parseInt(req.query.page) - 1 || 0;
+    const limit = parseInt(req.query.limit) || 5;
+    const search = req.query.search || "";
+    let sort = req.query.sort || "id";
+    let category = req.query.genre || "All";
+
+    const genreOptions = ["Indonesia", "Malaysia"];
+
+    category === "All"
+      ? (category = [...genreOptions])
+      : (category = req.query.genre.split(","));
+
+    req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
+
+    let sortBy = {};
+
+    if (sort[1]) {
+      sortBy[sort[0]] = sort[1];
+    } else {
+      sortBy[sort[0]] = "desc";
+    }
+
+    const post = await Post.find({
+      title: { $regex: search, $options: "i" },
+    })
       .populate("user")
       .populate("likes")
-      .populate("disLikes");
-    res.json(post);
+      .populate("disLikes")
+      .where("category")
+      .in([...category])
+      .sort(sortBy)
+      .skip(page * limit)
+      .limit(limit);
+
+    const total = await Post.countDocuments({
+      category: { $in: [...category] },
+      title: { $regex: search, $options: "i" },
+    });
+
+    // console.log("page: " + page);
+    // console.log("limit: " + limit);
+    // console.log("search: " + search);
+    // console.log("sortBy: " + sortBy);
+    // console.log("genre: " + genre);
+    // console.log("post: " + post);
+
+    const response = {
+      error: false,
+      total,
+      page: page + 1,
+      limit: limit,
+      genre: genreOptions,
+      post,
+    };
+    // console.log(response);
+    res.json(response);
+
+    // const post = await Post.find({})
+    //   .populate("user")
+    //   .populate("likes")
+    //   .populate("disLikes");
+    // res.json(post);
   } catch (error) {
     res.json(error);
   }
