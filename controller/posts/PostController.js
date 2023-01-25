@@ -12,7 +12,7 @@ const fs = require("fs");
 const createPostController = expressAsyncHandler(async (req, res) => {
   // console.log(req.body);
   const { _id } = req.user;
-  console.log(_id);
+  // console.log(_id);
   //   validateMongoDbId(req.body.user);
   // check if bad words
   const filter = new Filter();
@@ -95,13 +95,6 @@ const fetchAllPostController = expressAsyncHandler(async (req, res) => {
       category: { $in: [...category] },
       title: { $regex: search, $options: "i" },
     });
-
-    // console.log("page: " + page);
-    // console.log("limit: " + limit);
-    // console.log("search: " + search);
-    // console.log("sortBy: " + sortBy);
-    // console.log("genre: " + genre);
-    // console.log("post: " + post);
 
     const response = {
       error: false,
