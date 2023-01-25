@@ -62,7 +62,7 @@ const fetchAllPostController = expressAsyncHandler(async (req, res) => {
     let sort = req.query.sort || "createdAt";
     let category = req.query.category || "All";
 
-    const genreOptions = ["Indonesia", "Malaysia"];
+    const genreOptions = ["Indonesia", "Malaysia", "Timor Leste"];
 
     category === "All"
       ? (category = [...genreOptions])
