@@ -85,8 +85,8 @@ const fetchAllPostController = expressAsyncHandler(async (req, res) => {
     }
 
     const post = await Post.find({
-      title: { $regex: search, $options: "i" },
-      category: { $regex: search, $options: "i" },
+      title: { $regex: ".*" + search + ".*" },
+      description: { $regex: ".*" + search + ".*" },
     })
       .populate("user")
       .populate("likes")
@@ -98,8 +98,9 @@ const fetchAllPostController = expressAsyncHandler(async (req, res) => {
       .limit(limit);
 
     const total = await Post.countDocuments({
+      title: { $regex: ".*" + search + ".*" },
+      description: { $regex: ".*" + search + ".*" },
       category: { $in: [...category] },
-      title: { $regex: search, $options: "i" },
     });
 
     const response = {
