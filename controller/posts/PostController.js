@@ -217,7 +217,10 @@ const toggleAddLikeToPostConstroller = expressAsyncHandler(async (req, res) => {
       },
       { new: true }
     );
-    res.json(post);
+    res.json({
+      message: `You have successfully undisliked and like a post ${post?.title}`,
+      post: post,
+    });
   }
   // 6. remove the user likes from this post
   if (isLiked) {
@@ -231,7 +234,10 @@ const toggleAddLikeToPostConstroller = expressAsyncHandler(async (req, res) => {
       },
       { new: true }
     );
-    res.json(post);
+    res.json({
+      message: `You have successfully unliked a post ${post?.title}`,
+      post: post,
+    });
   } else {
     const post = await Post.findByIdAndUpdate(
       postId,
@@ -243,7 +249,10 @@ const toggleAddLikeToPostConstroller = expressAsyncHandler(async (req, res) => {
       },
       { new: true }
     );
-    res.json(post);
+    res.json({
+      message: `You Successfully liked a Post ${post?.title}`,
+      post: post,
+    });
   }
 });
 
@@ -277,7 +286,10 @@ const toggleAddDisLikeToPostConstroller = expressAsyncHandler(
         },
         { new: true }
       );
-      res.json(post);
+      res.json({
+        message: `You have successfully unliked and disliked a post ${post?.title}`,
+        post: post,
+      });
     }
     // 6. remove the user likes from this post
     if (isDisLiked) {
@@ -291,7 +303,10 @@ const toggleAddDisLikeToPostConstroller = expressAsyncHandler(
         },
         { new: true }
       );
-      res.json(post);
+      res.json({
+        message: `You have successfully undisliked a post ${post?.title}`,
+        post: post,
+      });
     } else {
       const post = await Post.findByIdAndUpdate(
         postId,
@@ -303,7 +318,10 @@ const toggleAddDisLikeToPostConstroller = expressAsyncHandler(
         },
         { new: true }
       );
-      res.json(post);
+      res.json({
+        message: `You Successfully Disliked a Post ${post?.title}`,
+        post: post,
+      });
     }
   }
 );
