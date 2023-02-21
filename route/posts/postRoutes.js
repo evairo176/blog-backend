@@ -7,6 +7,7 @@ const {
   createPostController,
   fetchAllPostController,
   fetchSinglePostController,
+  fetchSinglePostByIdUserontroller,
   updatePostController,
   deletePostController,
   toggleAddLikeToPostConstroller,
@@ -27,6 +28,7 @@ postRoutes.put("/likes", authMiddleware, toggleAddLikeToPostConstroller);
 postRoutes.put("/dislikes", authMiddleware, toggleAddDisLikeToPostConstroller);
 
 postRoutes.get("/", fetchAllPostController);
+postRoutes.get("/user", authMiddleware, fetchSinglePostByIdUserontroller);
 postRoutes.get("/:id", fetchSinglePostController);
 postRoutes.put("/:id", authMiddleware, updatePostController);
 postRoutes.delete("/:id", authMiddleware, deletePostController);

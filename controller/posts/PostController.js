@@ -151,6 +151,56 @@ const fetchSinglePostController = expressAsyncHandler(async (req, res) => {
 });
 
 //----------------------------------------------
+// fetch single post by id user
+//----------------------------------------------
+
+const fetchSinglePostByIdUserontroller = expressAsyncHandler(
+  async (req, res) => {
+    const id = req.query.user_id;
+    const page = parseInt(req.query.page) - 1 || 0;
+    const limit = parseInt(req.query.limit) || 5;
+    const search = req.query.search || "";
+    console.log({ id, page, limit, search });
+    validateMongoDbId(id);
+
+    try {
+      const post = await Post.find({
+        user: id,
+        title: { $regex: ".*" + search + ".*" },
+        description: { $regex: ".*" + search + ".*" },
+      })
+        .populate("user")
+        .populate("likes")
+        .populate("disLikes")
+        // .where("category")
+        // .in([...category])
+        // .sort(sortBy)
+        .skip(page * limit)
+        .limit(limit);
+      console.log(post.length);
+      const total = await Post.countDocuments({
+        user: id,
+        title: { $regex: ".*" + search + ".*" },
+        description: { $regex: ".*" + search + ".*" },
+      });
+
+      const response = {
+        error: false,
+        total,
+        page: page + 1,
+        limit: limit,
+        // category: genreOptions,
+        post,
+      };
+      // console.log(response);
+      res.json(response);
+    } catch (error) {
+      res.json(error);
+    }
+  }
+);
+
+//----------------------------------------------
 // update post
 //----------------------------------------------
 
@@ -330,6 +380,7 @@ module.exports = {
   createPostController,
   fetchAllPostController,
   fetchSinglePostController,
+  fetchSinglePostByIdUserontroller,
   updatePostController,
   deletePostController,
   toggleAddLikeToPostConstroller,
