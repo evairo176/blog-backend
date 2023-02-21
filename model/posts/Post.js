@@ -24,6 +24,7 @@ const PostSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    viewAt: Date,
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,

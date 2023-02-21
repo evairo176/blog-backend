@@ -144,11 +144,31 @@ const fetchSinglePostController = expressAsyncHandler(async (req, res) => {
       },
       { new: true }
     );
+    post.viewAt = Date.now();
+    await post.save();
     res.json(post);
   } catch (error) {
     res.json(error);
   }
 });
+
+//----------------------------------------------
+// fetch single post update
+//----------------------------------------------
+
+const fetchSinglePostUpdateController = expressAsyncHandler(
+  async (req, res) => {
+    const { id } = req.params;
+    validateMongoDbId(id);
+
+    try {
+      const post = await Post.findById(id).populate("user");
+      res.json(post);
+    } catch (error) {
+      res.json(error);
+    }
+  }
+);
 
 //----------------------------------------------
 // fetch single post by id user
@@ -179,7 +199,6 @@ const fetchSinglePostByIdUserontroller = expressAsyncHandler(
         .limit(limit);
       console.log(post.length);
       const total = await Post.countDocuments({
-        user: id,
         title: { $regex: ".*" + search + ".*" },
         description: { $regex: ".*" + search + ".*" },
       });
@@ -381,6 +400,7 @@ module.exports = {
   fetchAllPostController,
   fetchSinglePostController,
   fetchSinglePostByIdUserontroller,
+  fetchSinglePostUpdateController,
   updatePostController,
   deletePostController,
   toggleAddLikeToPostConstroller,
