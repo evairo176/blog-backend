@@ -35,7 +35,7 @@ const createPostController = expressAsyncHandler(async (req, res) => {
   try {
     const post = await Post.create({
       ...req.body,
-      image: imgUpload?.url,
+      image: imgUpload?.url ? imgUpload?.url : null,
       user: _id,
     });
     // remove uploaded img
