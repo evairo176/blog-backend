@@ -13,11 +13,7 @@ var cors = require("cors");
 
 //DB
 dbConnect();
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -26,6 +22,23 @@ app.use(function (req, res, next) {
   );
   next();
 });
+const allowList = ["https://blog-backend-ruddy.vercel.app/"];
+
+app.use(
+  cors({
+    // Your origin prop in cors({})
+    origin: function (origin, callback) {
+      // Log and check yourself if the origin actually matches what you've defined in the allowList array
+      console.log(origin);
+
+      if (allowList.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
 app.use(express.json());
 
 // user routes
