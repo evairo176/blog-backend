@@ -14,14 +14,6 @@ var cors = require("cors");
 //DB
 dbConnect();
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 const allowList = [
   "https://blog-backend-ruddy.vercel.app/",
   "https://evairo176-blog.netlify.app/",
@@ -43,6 +35,14 @@ app.use(
     },
   })
 );
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 app.use(express.json());
 
 // user routes
