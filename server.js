@@ -20,24 +20,7 @@ dbConnect();
 //   "http://localhost:5000",
 // ];
 
-app.use(
-  cors({
-    origin: "*",
-    credentials: true, //access-control-allow-credentials:true
-    optionSuccessStatus: 200,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"],
-    allowedHeaders: [
-      "Content-Type",
-      "Origin",
-      "X-Requested-With",
-      "Accept",
-      "x-client-key",
-      "x-client-token",
-      "x-client-secret",
-      "Authorization",
-    ],
-  })
-);
+app.use(cors());
 
 app.use(express.json());
 
