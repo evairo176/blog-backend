@@ -125,7 +125,7 @@ const fetchAllPostController = expressAsyncHandler(async (req, res) => {
 });
 
 //----------------------------------------------
-// fetch single post 
+// fetch single post
 //----------------------------------------------
 
 const fetchSinglePostController = expressAsyncHandler(async (req, res) => {
