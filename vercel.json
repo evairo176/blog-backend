@@ -1,6 +1,6 @@
 {
-  "version": 2,
+  "version": 3,
   "name": "blog-api",
   "builds": [{ "src": "./server.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "/" }]
+  "routes": [{ "src": "/(.*)", "dest": "/(.*)" }]
 }
