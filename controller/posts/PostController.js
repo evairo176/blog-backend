@@ -26,11 +26,15 @@ const createPostController = expressAsyncHandler(async (req, res) => {
       "Creating failed because it content profane words and you havae been blocked"
     );
   }
-  // 1. get the path to img
-  const localPath = `public/images/posts/${req.file.filename}`;
-  // 2. upload to cloudinary
-  const imgUpload = await cloudinaryUploadImg(localPath);
-  //   res.json(imgUpload);
+  let localPath;
+  let imgUpload;
+  if (req.file.filename) {
+    // 1. get the path to img
+    localPath = `public/images/posts/${req.file.filename}`;
+    // 2. upload to cloudinary
+    imgUpload = await cloudinaryUploadImg(localPath);
+    //   res.json(imgUpload);
+  }
 
   try {
     const post = await Post.create({
