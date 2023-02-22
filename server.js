@@ -22,7 +22,11 @@ app.use(function (req, res, next) {
   );
   next();
 });
-const allowList = ["https://blog-backend-ruddy.vercel.app/"];
+const allowList = [
+  "https://blog-backend-ruddy.vercel.app/",
+  "https://evairo176-blog.netlify.app/",
+  "http://localhost:5000/",
+];
 
 app.use(
   cors({
