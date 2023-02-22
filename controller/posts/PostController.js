@@ -35,11 +35,11 @@ const createPostController = expressAsyncHandler(async (req, res) => {
   try {
     const post = await Post.create({
       ...req.body,
-      image: imgUpload?.url,
+      image: req.file.filename,
       user: _id,
     });
     // remove uploaded img
-    fs.unlinkSync(localPath);
+    // fs.unlinkSync(localPath);
     // res.json(imgUpload);
     res.json({
       message: `Post with title ${req?.body.title} was created successfully`,
