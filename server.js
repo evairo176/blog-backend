@@ -14,35 +14,14 @@ var cors = require("cors");
 //DB
 dbConnect();
 
-const allowList = [
-  "https://blog-backend-ruddy.vercel.app",
-  "https://evairo176-blog.netlify.app",
-  "http://localhost:5000",
-];
+// const allowList = [
+//   "https://blog-backend-ruddy.vercel.app",
+//   "https://evairo176-blog.netlify.app",
+//   "http://localhost:5000",
+// ];
 
-app.use(
-  cors({
-    // Your origin prop in cors({})
-    origin: function (origin, callback) {
-      // Log and check yourself if the origin actually matches what you've defined in the allowList array
-      console.log(origin);
+app.use(cors({ origin: true, credentials: true }));
 
-      if (allowList.indexOf(origin) !== -1 || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
-);
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 app.use(express.json());
 
 // user routes
