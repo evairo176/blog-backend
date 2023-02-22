@@ -13,7 +13,11 @@ var cors = require("cors");
 
 //DB
 dbConnect();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(express.json());
 
 // user routes
