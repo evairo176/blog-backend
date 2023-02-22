@@ -15,9 +15,9 @@ var cors = require("cors");
 dbConnect();
 
 const allowList = [
-  "https://blog-backend-ruddy.vercel.app/",
-  "https://evairo176-blog.netlify.app/",
-  "http://localhost:5000/",
+  "https://blog-backend-ruddy.vercel.app",
+  "https://evairo176-blog.netlify.app",
+  "http://localhost:5000",
 ];
 
 app.use(
