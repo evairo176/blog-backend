@@ -230,12 +230,20 @@ const fetchSinglePostByIdUserontroller = expressAsyncHandler(
 const updatePostController = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
+  const post = await Post.find({ id: id });
+  if (req.file) {
+    image_url = await cloudinaryUploadImg(req.file.path);
+    imgUpload = image_url?.url;
+  } else {
+    imgUpload = post?.image;
+  }
   try {
     const postUpdate = await Post.findByIdAndUpdate(
       id,
       {
         ...req.body,
         user: req.user,
+        image: imgUpload,
       },
       { new: true }
     );

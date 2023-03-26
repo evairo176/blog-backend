@@ -33,7 +33,12 @@ postRoutes.get("/", fetchAllPostController);
 postRoutes.get("/user", authMiddleware, fetchSinglePostByIdUserontroller);
 postRoutes.get("/user/:id", fetchSinglePostUpdateController);
 postRoutes.get("/:id", fetchSinglePostController);
-postRoutes.put("/:id", authMiddleware, updatePostController);
+postRoutes.put(
+  "/:id",
+  authMiddleware,
+  photoUpload.single("image"),
+  updatePostController
+);
 postRoutes.delete("/:id", authMiddleware, deletePostController);
 
 module.exports = postRoutes;
