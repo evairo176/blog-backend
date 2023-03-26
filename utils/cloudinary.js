@@ -14,6 +14,7 @@ const cloudinaryUploadImg = async (fileToUpload) => {
     return {
       url: data?.secure_url,
       originalname: data?.original_filename,
+      format: data?.format,
     };
   } catch (error) {
     return error;

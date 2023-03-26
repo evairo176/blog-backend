@@ -2,29 +2,16 @@ const multer = require("multer");
 const sharp = require("sharp");
 const path = require("path");
 
-// storage
-const multerStorage = multer.memoryStorage();
-
-//file type checking
-const multerFilter = (req, file, callback) => {
-  // check file type
-  if (file.mimetype.startsWith("image")) {
-    callback(null, true);
-  } else {
-    // rejected files
-    callback(
-      {
-        message: "Unsupported file format",
-      },
-      false
-    );
-  }
-};
-
 const photoUpload = multer({
-  storage: multerStorage,
-  fileFilter: multerFilter,
-  limits: { fileSize: 1000000000 },
+  storage: multer.diskStorage({}),
+  fileFilter: (req, file, cb) => {
+    let ext = path.extname(file.originalname);
+    if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
+      cb(new Error("File type is not supported"), false);
+      return;
+    }
+    cb(null, true);
+  },
 });
 
 //image resizing

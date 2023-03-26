@@ -29,10 +29,10 @@ const createPostController = expressAsyncHandler(async (req, res) => {
   let localPath;
   let imgUpload;
   if (req.file.filename) {
-    // 1. get the path to img
-    localPath = `public/images/posts/${req.file.filename}`;
+    // // 1. get the path to img
+    // localPath = `public/images/posts/${req.file.filename}`;
     // 2. upload to cloudinary
-    imgUpload = await cloudinaryUploadImg(localPath);
+    imgUpload = await cloudinaryUploadImg(req.file.path);
     //   res.json(imgUpload);
   }
 
