@@ -22,7 +22,8 @@ postRoutes.post(
   "/",
   authMiddleware,
   photoUpload.single("image"),
-  postImgResize,
+  // mencoba
+  // postImgResize,
   createPostController
 );
 postRoutes.put("/likes", authMiddleware, toggleAddLikeToPostConstroller);
